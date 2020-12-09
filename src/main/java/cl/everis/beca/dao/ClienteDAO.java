@@ -11,12 +11,15 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import cl.everis.beca.entity.Cliente;
+import cl.everis.beca.repository.ClienteRepository;
 
 @Repository
 public class ClienteDAO implements IClienteDAO{
 	
 	@Autowired
     private EntityManager entityManager;
+	@Autowired
+    private ClienteRepository clienteRepository;
 
 	@Override
 	public List<Cliente> findAll() {
@@ -39,15 +42,8 @@ public class ClienteDAO implements IClienteDAO{
 	}
 
 	@Override
-	@Transactional
-	public void save(Cliente cliente) {
-		Session currentSession = entityManager.unwrap(Session.class);
-
-		@SuppressWarnings("unchecked")
-		Query<Cliente> theQuery = currentSession.createQuery("insert into Cliente(rut, nombre, apellido)" +
-                "select rut, nombre, apellido from Cliente");
-		
-		 theQuery.executeUpdate();
+	public Cliente save(Cliente cliente) {
+		return clienteRepository.save(cliente);
 		
 	}
 	

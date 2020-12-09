@@ -10,7 +10,7 @@ public interface IClienteDAO {
 
     public Cliente findById(Long id);
 
-    public void save(Cliente cliente);
+    public Cliente save(Cliente cliente);
     
     public void update(Cliente cliente, Long idCliente);
 
